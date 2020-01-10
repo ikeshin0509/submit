@@ -6,6 +6,8 @@ using UnityEngine;
 public class midboss{ 
 	private int hp = 50; 
 	private int power = 15; 
+	public int MP = 53; 
+	public int used = 5;
 
 	//攻撃用の関数
 	public void Attack(){
@@ -17,8 +19,23 @@ public class midboss{
 		this.hp -= damage; 
 	}
 
+	public void Magic(){ 
 
-}
+		//残りMPが５以下の場合の表示
+		if(MP >= used){
+			MP -= used;
+
+			Debug.Log("魔法攻撃をした。残りMPは" + MP);}
+
+		//残りMPが５以上の場合の表示
+		else if(MP <= used) {Debug.Log("MPが足りないため、魔法が使えない");
+
+		}
+	}
+}	
+
+
+
 public class First{
 
 	public void testcase1(){
@@ -52,37 +69,28 @@ public class second{
 }
 
 
-public class third{
-
-	//変数MPを53で初期化する
-	int MP = 53; 
-
-	public void Magic(int used){ 
-		//MP５以下になるまでループ
-		for(int result = MP; result > 0; result -= 5){ 
-
-			//残りMPが５以下の場合の表示
-			if(result < 5){Debug.Log("MPが足りないため、魔法が使えない");}
-
-			//残りMPが５以上の場合の表示
-			else if(result > 5){Debug.Log("魔法攻撃をした。残りMPは" + result);
-			  }
-         }
-	}	
-}
 
 
 public class Test : MonoBehaviour{
 	
 
 	void Start(){
-		
+
+		//魔法攻撃の処理回数　
+		int MagicAblibleTimes = 10;
+
 		//midbossクラスの変数を宣言してインスタンスを代入
 		midboss midiaumBoss = new midboss ();
 		//攻撃用の関数を呼び出す
 		midiaumBoss.Attack ();
 		//防御用の関数を呼び出す
 		midiaumBoss.Defence (2);
+
+		//MP５以下になるまでループ
+		for (int i = 0; i < MagicAblibleTimes; i++){
+			midiaumBoss.Magic (); 
+		}
+
 
 		//testcase1のクラス変数名宣言してインスタンスを代入
 		First TestcaseFirst = new First ();
@@ -94,12 +102,6 @@ public class Test : MonoBehaviour{
 		//testcase2の関数を呼び出す
 		testes.testcase2 ();
 						
-			
-		//関数Magicのクラス変数名を宣言してインスタンスを代入　
-		third motion = new third(); 
-		//Magic関数を引数を与えて呼び出す。　
-		motion.Magic(5);
-
-		Debug.Log ("動いていますか？");
+	
 	}
 }
